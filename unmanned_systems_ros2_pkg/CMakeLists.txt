@@ -34,9 +34,26 @@ install(PROGRAMS
   scripts/python_node.py
   scripts/turtlebot_simple.py
   scripts/logger.py
+  scripts/ros2_hw_4_KButler.py
+  scripts/turtlebot_pid.py
+  scripts/turtlebot_Hwk5_P2.py
+  scripts/turtlebot_Hwk5_P1.py
+  scripts/turtlebot_Hwk5_P3.py
+  scripts/turtlebot_spawn.py
+  scripts/pn.py
+  scripts/evader.py
+  scripts/turtlebot_Hwk5_P3_RRT.py
+  scripts/pn_simple.py
+  scripts/logger_pursuit.py
   DESTINATION lib/${PROJECT_NAME}
 )
 ament_package()
+
+# colcon build --symlink-install
+# done in ros2_ws
+
+# chmod +x *.py
+# done in scripts of unmann unmann
 
 #launch
 install(DIRECTORY
@@ -47,3 +64,4 @@ install(DIRECTORY
   # assets
   DESTINATION share/${PROJECT_NAME}
 )
+

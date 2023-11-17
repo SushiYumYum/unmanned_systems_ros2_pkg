@@ -19,9 +19,13 @@ class PID():
         self.kd = kd
         self.dt = dt
         self.error = [0,0]
+
+    def say_whaddup(self):
+        print("What's up man")
         
-    def compute_error(self, des, actual):
+    def compute_error(self, des:float, actual:float) -> float:
         self.error[0] = des-actual 
+        return self.error[0]
         
     def get_gains(self, des, actual):
         #p gains

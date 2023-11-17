@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from re import S
 import rclpy
 import math 
@@ -106,17 +105,11 @@ def main()->None:
         
         time_diff = get_time_in_secs(turtlebot_node) - time_origin 
         
-        if (time_diff > time_duration_2):
-            turtlebot_node.move_turtle(cmd_vel, 0.0)
-        
-        if (time_diff > time_duration_1 and time_diff < time_duration_2):
-            turtlebot_node.move_turtle(0.0, ang_vel)
-        
-        if (time_diff <= time_duration_1):
-            turtlebot_node.move_turtle(cmd_vel, 0.0)
-        if (time_diff > time_duration_3):
+        if (time_diff <= time_duration):
+            turtlebot_node.move_turtle(cmd_vel, ang_vel)
+        else:
             turtlebot_node.move_turtle(stop_vel, 0.0)
-            print('moving time is', time_diff)
+
             # Destroy the node explicitly
             # (optional - otherwise it will be done automatically
             # when the garbage collector destroys the node object)

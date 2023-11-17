@@ -75,7 +75,7 @@ def main() -> None:
 
         evader_velocity = (evader_position - old_evader_position)/dt
                 
-        flight_path_rate, cmd_vel = pro_nav.simple_pro_nav(
+        flight_path_rate, cmd_vel = pro_nav.true_pro_nav(
             np.array(turtlebot_pursuer.current_position), 
             evader_position,
             dt, 

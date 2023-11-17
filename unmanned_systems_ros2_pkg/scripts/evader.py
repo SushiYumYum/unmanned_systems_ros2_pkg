@@ -52,15 +52,15 @@ def main() -> None:
 
     set_random = False
     is_done = False
-    n_random_waypoints = 1
+    n_random_waypoints =  5
     heading_tol = 0.1; #radians
     dist_tolerance = 0.25 #meters
     
-    turn_speed = 0.1 #rad/speed
-    line_speed = 0.1 #m/s
+    turn_speed = 1.1 #rad/speed
+    line_speed = 0.15 #m/s
     stop_speed = 0.0 
     
-    if set_random == True:  #True means random waypoints. False to go to (6,6), like in hwk
+    if set_random == False:
         waypoints = [[6,6]]
     else:
         waypoints = generate_random_waypoints(n_random_waypoints, 15);

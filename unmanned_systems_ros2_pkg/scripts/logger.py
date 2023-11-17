@@ -12,6 +12,7 @@ import time
 import csv
 import os
 import datetime
+from geometry_msgs.msg import Twist
 
 from nav_msgs.msg import Odometry
 
@@ -28,21 +29,28 @@ class OdomLocNode(Node):
 		super().__init__('logger_node')
 		self.current_position = [None,None]
 		self.orientation_euler = [None,None,None]
-		self.odom_subscriber = self.create_subscription(
-			Odometry, sub_topic, self.odom_callback, 10)
+		
 		self.linear_vel_x = None
 		self.angular_vel_z = None
 
+		self.odom_subscriber = self.create_subscription(
+			Odometry, sub_topic, self.odom_callback, 10)
+		 
+
 		self.vel_subscriber = self.create_subscription(
-			Twist, '/cmd_vel', self.vel_callback, 10)
+			Odometry, sub_topic, self.odom_callback, 10)
 
-	def vel_callback(self, msg:Twist):
-		self.linear_vel_x = msg.linear.x
-		self.angular_vel_z = msg.angular.z
-		print(self.angular_vel_z)
+		# we want to do the same thing for vel
+		# t
+		self.vel_subscriber = self.create_subscription(
+			Twist, 'cmd_vel', self.vel_callback, 10)
+		
 
+	def vel_callback(self, msg:Twist): 
+		self.linear_vel_x = msg.linear.x 
+		self.angular_vel_z = msg.angular.z	
 
-	def odom_callback(self,msg):
+	def odom_callback(self,msg:Odometry):
 		"""subscribe to odometry"""
 		self.current_position[0] = msg.pose.pose.position.x
 		self.current_position[1] = msg.pose.pose.position.y
@@ -61,8 +69,8 @@ class OdomLocNode(Node):
 		print("yaw is", np.degrees(self.orientation_euler[2]))
 
 def main():
-	FILEPATH = "/home/sushiyumyum/ros2_ws/src/unmanned_systems_ros2_pkg/unmanned_systems_ros2_pkg/log/"
-	FILENAME = "Hwk4_log.csv"
+	FILEPATH = "/home/justin/ros2/src/unmanned_systems_ros2_pkg/unmanned_systems_ros2_pkg/log/"
+	FILENAME = "dumpster_log.csv"
 
 	print(os.getcwd())
 	rclpy.init(args=None)
@@ -113,12 +121,8 @@ def main():
 		# create the data vector which we will write to the file, remember if you change
 		# something here, but don't change the header string, your column headers won't
 		# match the data
-		
-		#myData = [now, odom_node.current_position[0], odom_node.current_position[1],
-			#odom_node.orientation_euler[2], odom_node.linear_vel_x, odom_node.angular_vel_z]
-
-		#myData = [now, odom_node.orientation_euler[2]]  # For H5,P1
-		myData = [odom_node.current_position[0], odom_node.current_position[1]]
+		myData = [now, odom_node.current_position[0], odom_node.current_position[1],
+			odom_node.orientation_euler[2]]
 
 		# stick everything in the file
 		myFile = open(fileName, 'a')

@@ -34,6 +34,13 @@ install(PROGRAMS
   scripts/python_node.py
   scripts/turtlebot_simple.py
   scripts/logger.py
+  scripts/ros2_hw_4_node.py
+  scripts/turtlebot_pid.py
+  scripts/turtlebot_wp.py
+  scripts/turtlebot_spawn.py
+  scripts/pn.py
+  scripts/evader.py
+  scripts/logger_pursuit.py
   scripts/ros2_hw_4_KButler.py
   scripts/turtlebot_pid.py
   scripts/turtlebot_Hwk5_P2.py
